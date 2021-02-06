@@ -6,7 +6,7 @@ import { findElement } from "../testUtils";
 
 const createWrapper = () => shallow(<App />);
 
-describe("App component should render properly", () => {
+xdescribe("App component should render properly", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = createWrapper();
@@ -29,7 +29,7 @@ describe("App component should render properly", () => {
   });
 });
 
-describe("App component events should work as expected", () => {
+xdescribe("App component events should work as expected", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = createWrapper();

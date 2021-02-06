@@ -4,7 +4,7 @@ import App from "./App";
 // Testing using Jest and React testing library
 // https://www.robinwieruch.de/react-testing-library
 
-describe("App component should render properly", () => {
+xdescribe("App component should render properly", () => {
   beforeEach(() => {});
   test("renders without error", () => {
     render(<App />);
@@ -39,7 +39,7 @@ describe("App component should render properly", () => {
   });
 });
 
-describe("App component events should work as expected", () => {
+xdescribe("App component events should work as expected", () => {
   beforeEach(() => {});
   test("clicking on increment button increaments counter", async () => {
     let app = render(<App />);
