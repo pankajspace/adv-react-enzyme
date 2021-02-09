@@ -13,18 +13,44 @@ const createWrapper = (initialState = {}) => {
   return wrapper;
 };
 
-describe("Input component", () => {
-  describe("render", () => {
-    describe("word han not been guessed", () => {
-      it("renders the component without error", () => {});
-      it("renders the input box", () => {});
-      it("renders the submit button", () => {});
+describe("Input component render", () => {
+  describe("word han not been guessed", () => {
+    let wrapper;
+    beforeEach(() => {
+      const initialState = { success: false };
+      wrapper = createWrapper(initialState);
     });
-    describe("word han been guessed", () => {
-      it("renders the component without error", () => {});
-      it("does not render the input box", () => {});
-      it("does not render the submit button", () => {});
+    it("renders the component without error", () => {
+      const element = findElement(wrapper, "form-input");
+      expect(element.length).toBe(1);
+    });
+    it("renders the input box", () => {
+      const element = findElement(wrapper, "element-input");
+      expect(element.length).toBe(1);
+    });
+    it("renders the submit button", () => {
+      const element = findElement(wrapper, "button-input");
+      expect(element.length).toBe(1);
     });
   });
-  describe("update state", () => {});
+  describe("word han been guessed", () => {
+    let wrapper;
+    beforeEach(() => {
+      const initialState = { success: true };
+      wrapper = createWrapper(initialState);
+    });
+    it("renders the component without error", () => {
+      const element = findElement(wrapper, "form-input");
+      expect(element.length).toBe(0);
+    });
+    it("does not render the input box", () => {
+      const element = findElement(wrapper, "element-input");
+      expect(element.length).toBe(0);
+    });
+    it("does not render the submit button", () => {
+      const element = findElement(wrapper, "button-input");
+      expect(element.length).toBe(0);
+    });
+  });
 });
+describe("Input component update state", () => {});
