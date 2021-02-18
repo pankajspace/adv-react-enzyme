@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { findElement, storeFactory } from "../testUtils";
-import Input from "./input";
+import Input from "./Input";
 
 const createWrapper = (initialState = {}) => {
   const store = storeFactory(initialState);
