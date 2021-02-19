@@ -3,10 +3,12 @@ export const actionTypes = {
   GUESS_WORD: "GUESS_WORD",
 };
 
-export const correctGuess = () => {
-  return { type: actionTypes.CORRECT_GUESS };
-};
+// export const correctGuess = () => {
+//   return { type: actionTypes.CORRECT_GUESS };
+// };
 
-export const guessWord = () => {
-  return { type: actionTypes.GUESS_WORD };
+export const guessWord = (guessedWord) => {
+  return (dispatch, getState) => {
+    return { type: actionTypes.GUESS_WORD };
+  };
 };
