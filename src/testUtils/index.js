@@ -16,7 +16,14 @@ export const checkProps = (component, expectedProps) => {
   );
 };
 
-const middlewareEnhancer = applyMiddleware(...middlewares);
+// const middlewareEnhancer = applyMiddleware(...middlewares);
+// export const storeFactory = (initialState) => {
+//   return createStore(rootReducer, initialState, middlewareEnhancer);
+// };
+
 export const storeFactory = (initialState) => {
-  return createStore(rootReducer, initialState, middlewareEnhancer);
+  const createStoreWithMiddleware = applyMiddleware(...middlewares)(
+    createStore
+  );
+  return createStoreWithMiddleware(rootReducer, initialState);
 };
