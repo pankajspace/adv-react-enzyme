@@ -1,8 +1,11 @@
+import axios from "axios";
+
 import { getMatchedLettersCount } from "../../helpers";
 
 export const actionTypes = {
   CORRECT_GUESS: "CORRECT_GUESS",
   GUESS_WORD: "GUESS_WORD",
+  SET_SECRET_WORD: "SET_SECRET_WORD",
 };
 
 // export const correctGuess = () => {
@@ -20,6 +23,15 @@ export const guessWord = (word) => {
     if (word === secretWord) {
       dispatch({ type: actionTypes.CORRECT_GUESS });
     }
-    return { type: actionTypes.GUESS_WORD };
+  };
+};
+
+export const getSecretWord = (word) => {
+  return (dispatch, getState) => {
+    return axios
+      .get("https://random-word-api.herokuapp.com/word?number=1")
+      .then((res) => {
+        dispatch({ type: actionTypes.SET_SECRET_WORD, payload: res.data });
+      });
   };
 };
