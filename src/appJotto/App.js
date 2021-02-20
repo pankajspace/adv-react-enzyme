@@ -20,7 +20,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getSecretWord()
+    this.props.getSecretWord();
   }
 
   render() {
@@ -36,6 +36,13 @@ export class App extends Component {
 
 App.propTypes = {
   success: propTypes.bool.isRequired,
+  guessedWords: propTypes.arrayOf(
+    propTypes.shape({
+      word: propTypes.string.isRequired,
+      correctLetters: propTypes.number.isRequired,
+    })
+  ).isRequired,
+  secretWord: propTypes.string.isRequired,
 };
 
 export const mapStateToProps = (state) => {

@@ -2,19 +2,19 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { findElement, storeFactory } from "../testUtils";
-import Input from "./Input";
+import ConnectedInput, { Input } from "./Input";
 
 const createWrapper = (initialState = {}) => {
   const store = storeFactory(initialState);
-  const wrapper = shallow(<Input store={store} />).dive();
+  const wrapper = shallow(<ConnectedInput store={store} />).dive();
   return wrapper;
 };
 
-describe("Input component renders", () => {
+describe("ConnectedInput component renders", () => {
   describe("word has not been guessed", () => {
     let wrapper;
     beforeEach(() => {
-      const initialState = { success: false };
+      const initialState = { success: false, secretWord: "party" };
       wrapper = createWrapper(initialState).dive();
     });
     it("renders the component without error", () => {
@@ -33,7 +33,7 @@ describe("Input component renders", () => {
   describe("word has been guessed", () => {
     let wrapper;
     beforeEach(() => {
-      const initialState = { success: true };
+      const initialState = { success: true, secretWord: "party" };
       wrapper = createWrapper(initialState).dive();
     });
     it("renders the component without error", () => {
@@ -51,16 +51,42 @@ describe("Input component renders", () => {
   });
 });
 
-describe("Input component redux props", () => {
+describe("ConnectedInput component redux props", () => {
   test("has success piece of state as a prop", () => {
-    const success = false;
-    const wrapper = createWrapper({ success }).dive();
+    const initialState = { success: false, secretWord: "party" };
+    const wrapper = createWrapper(initialState).dive();
     const successProp = wrapper.instance().props.success;
-    expect(successProp).toBe(success);
+    expect(successProp).toBe(initialState.success);
   });
   test("has guessWord action creator piece of state as a prop", () => {
-    const wrapper = createWrapper().dive();
+    const initialState = { success: false, secretWord: "party" };
+    const wrapper = createWrapper(initialState).dive();
     const guessWordProp = wrapper.instance().props.guessWord;
     expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
+
+describe("Input component guessWord action creator", () => {
+  let guessWordMock;
+  let props;
+  const guessedWord = "train";
+  beforeEach(() => {
+    guessWordMock = jest.fn();
+    props = {
+      success: false,
+    };
+    const wrapper = shallow(<Input {...props} guessWord={guessWordMock} />);
+    wrapper.setState({ currentGuess: guessedWord });
+    const submitButton = findElement(wrapper, "button-input");
+    const event = { preventDefault: () => {} };
+    submitButton.simulate("click", event);
+  });
+  test("gets called on submit button click", () => {
+    const guessWordCallsCount = guessWordMock.mock.calls.length;
+    expect(guessWordCallsCount).toBe(1);
+  });
+  test("calls guessWord with input value as argument", () => {
+    const guessedWordArg = guessWordMock.mock.calls[0][0];
+    expect(guessedWordArg).toBe(guessedWord);
   });
 });
