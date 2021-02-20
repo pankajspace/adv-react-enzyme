@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 
 import "./App.css";
 import { Congrats } from "../appJotto/Congrats";
+import Input from "../appJotto/Input";
 import { GuessedWords } from "../appJotto/GuessedWords";
 import { getSecretWord } from "./actions";
 
-const guessedWords = [
-  { word: "pest", correctLetters: 3 },
-  { word: "best", correctLetters: 3 },
-];
+// const guessedWords = [
+//   { word: "pest", correctLetters: 3 },
+//   { word: "best", correctLetters: 3 },
+// ];
 
 export class App extends Component {
   constructor(props) {
@@ -27,8 +28,10 @@ export class App extends Component {
     return (
       <div className="App container" data-test="component-app">
         <h1>Jotto App</h1>
-        <Congrats success={true} />
-        <GuessedWords guessedWords={guessedWords} />
+        {/* <div>The secret word is {this.props.secretWord}</div> */}
+        <Congrats success={this.props.success} />
+        <Input />
+        <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
   }

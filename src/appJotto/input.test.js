@@ -69,13 +69,14 @@ describe("ConnectedInput component redux props", () => {
 describe("Input component guessWord action creator", () => {
   let guessWordMock;
   let props;
+  let wrapper;
   const guessedWord = "train";
   beforeEach(() => {
     guessWordMock = jest.fn();
     props = {
       success: false,
     };
-    const wrapper = shallow(<Input {...props} guessWord={guessWordMock} />);
+    wrapper = shallow(<Input {...props} guessWord={guessWordMock} />);
     wrapper.setState({ currentGuess: guessedWord });
     const submitButton = findElement(wrapper, "button-input");
     const event = { preventDefault: () => {} };
@@ -88,5 +89,8 @@ describe("Input component guessWord action creator", () => {
   test("calls guessWord with input value as argument", () => {
     const guessedWordArg = guessWordMock.mock.calls[0][0];
     expect(guessedWordArg).toBe(guessedWord);
+  });
+  test("input box clears on submit", () => {
+    expect(wrapper.state("currentGuess")).toBe("");
   });
 });

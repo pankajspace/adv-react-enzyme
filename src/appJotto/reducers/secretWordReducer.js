@@ -1,6 +1,6 @@
 import { actionTypes } from "../actions";
 
-const secretWord = (state = null, action) => {
+const secretWord = (state = "", action) => {
   switch (action.type) {
     case actionTypes.SET_SECRET_WORD:
       return action.payload;

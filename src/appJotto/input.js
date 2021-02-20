@@ -8,15 +8,17 @@ export class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentGuess: null,
+      currentGuess: "",
     };
   }
 
   submitGuess = (e) => {
     e.preventDefault();
     const guessedWord = this.state.currentGuess;
-    if (guessedWord && guessedWord.length > 0)
+    if (guessedWord && guessedWord.length > 0) {
       this.props.guessWord(guessedWord);
+      this.setState({ currentGuess: "" });
+    }
   };
 
   render() {
